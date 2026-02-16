@@ -59,8 +59,8 @@
               tabindex="-1"
               class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              <li><a href="">Home</a></li>
-              <li><a href="">Products</a></li>
+              <li><a href="" id="homeLink">Home</a></li>
+              <li><a href="" id="productsLink"></a>>Products</a></li>
               <li><a href="">About</a></li>
               <li><a href="">Contact</a></li>
             </ul>
@@ -69,8 +69,8 @@
         </div>
         <div class="navbar-center hidden lg:flex">
           <ul class="menu menu-horizontal px-1">
-            <li><a href="">Home</a></li>
-            <li><a href="">Products</a></li>
+            <li><a href="#">Home</a></li>
+            <li><button onclick="allProducts()">Products</button></li>
             <li><a href="">About</a></li>
             <li><a href="">Contact</a></li>
           </ul>
@@ -90,7 +90,18 @@
 
     <!-- Section -1 Banner Section -->
 
-    <section class="">
+
+
+ <main id="app">
+
+  <!-- Dynamic section Start -->
+   <section id="product-container" class="max-w-6xl mx-auto my-10">
+  
+   </section>
+  <!-- Dynamic section end -->
+  <!-- Home content start -->
+   <div id="homeContent">
+      <section class="">
    <div class="relative h-[500px] overflow-hidden">
 
   <!-- bg img -->
@@ -199,6 +210,8 @@
 
      </section>
 
+   </div>
+ </main>
      <!-- Last Section - Footer -->
       <section>
         <footer class="footer sm:footer-horizontal  text-white p-10 bg-[#1E2939]">
@@ -243,6 +256,6 @@
       </section>
 
 
-   
+<script src="./Script/product.js"></script>
   </body>
 </html>
