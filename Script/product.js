@@ -34,18 +34,26 @@ detailsbox.innerHTML=`
   <figure class="">
     <img
       src="${singleProduct.image}"
-      alt="product" />
+      alt="product"
+      class="h-40 object-contain"
+      />
      
   </figure>
   <div class="card-body">
+  <div class="flex justify-between">
     <h2 class="card-title">
-      Card Title
-      <div class="badge badge-secondary">NEW</div>
+      ${singleProduct.title}
+    
     </h2>
-    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+      <div class="badge badge-secondary">
+      
+      <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+      ${singleProduct.rating.rate}</div>
+  </div>
+    <p class="justify-self-auto text-justify first-letter:uppercase"">${singleProduct.description}</p>
     <div class="card-actions justify-end">
-      <div class="badge badge-outline">Fashion</div>
-      <div class="badge badge-outline">Products</div>
+      <div class="badge badge-outline font-semibold">$ ${singleProduct.price}</div>
+      <button onClick="" class="badge badge-outline border-2 border-blue-600 hover:bg-gray-300 font-semibold ">Add To Cart</button>
     </div>
   </div>
 </div>
@@ -98,7 +106,7 @@ const displayProducts = (products) => {
 
         <!-- Title -->
         <h3 class="mt-3 font-semibold text-gray-800 text-sm line-clamp-2">
-          ${product.title}
+          ${product.title.length > 30 ? product.title.slice(0,30) + "..." : product.title}
         </h3>
 
         <!-- Price -->
@@ -108,7 +116,7 @@ const displayProducts = (products) => {
 
         <!-- Buttons -->
         <div class="flex items-center justify-between mt-4 gap-2">
-          <button onClick="loadDetail(${product.id})" class="flex-1 text-sm text-gray-600 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+          <button onClick="loadDetail(${product.id})" class="flex-1 text-sm text-gray-600 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition font-semibold">
             👁 Details
           </button>
 
