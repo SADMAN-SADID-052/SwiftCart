@@ -13,7 +13,15 @@ const allProducts = () => {
     .then(data => displayProducts(data));
 };
 
+// Load each product details
 
+const loadDetail = async(id) =>{
+
+  const url = `https://fakestoreapi.com/products/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  console.log(details);
+};
 // Show Home
 const showHome = () => {
   homeContent.classList.remove("hidden");
@@ -65,7 +73,7 @@ const displayProducts = (products) => {
 
         <!-- Buttons -->
         <div class="flex items-center justify-between mt-4 gap-2">
-          <button onClick="my_modal_5.showModal()" class="flex-1 text-sm text-gray-600 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+          <button onClick="loadDetail(${product.id})" class="flex-1 text-sm text-gray-600 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
             👁 Details
           </button>
 
