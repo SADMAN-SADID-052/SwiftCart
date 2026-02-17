@@ -12,7 +12,7 @@ const allProducts = () => {
   productContainer.classList.remove("hidden");
   TrendingText.classList.add("hidden");
    showCategory.classList.remove("hidden");
-   
+
   loadCategories();
   fetch("https://fakestoreapi.com/products")
     .then((res) => res.json())
@@ -161,19 +161,30 @@ const loadCategories = async () => {
   const container = document.getElementById("category-container");
   container.innerHTML = "";
 
-  // All button
+  // All Button (Default Active)
   const allBtn = document.createElement("button");
   allBtn.innerText = "All";
-  allBtn.className = "category-btn";
-  allBtn.onclick = () => allProducts();
+  allBtn.className =
+    "category-btn px-6 py-2 rounded-full text-sm font-medium transition duration-300 bg-primary text-white shadow-md";
+
+  allBtn.onclick = () => {
+    setActiveButton(allBtn);
+    allProducts();
+  };
+
   container.appendChild(allBtn);
 
+  // Other Category Buttons
   categories.forEach((cat) => {
     const btn = document.createElement("button");
     btn.innerText = cat;
-    btn.className = "category-btn capitalize";
+
+    btn.className =
+      "category-btn px-6 py-2 rounded-full text-sm font-medium border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition duration-300 capitalize";
 
     btn.onclick = () => {
+      setActiveButton(btn);
+
       fetch(`https://fakestoreapi.com/products/category/${cat}`)
         .then((res) => res.json())
         .then((data) => displayProducts(data));
@@ -258,3 +269,16 @@ document.addEventListener("DOMContentLoaded", function () {
     navButtons[0].classList.add("active");
   }
 });
+
+
+// Category button highlight function
+
+const setActiveButton = (activeBtn) => {
+  document.querySelectorAll(".category-btn").forEach((btn) => {
+    btn.className =
+      "category-btn px-6 py-2 rounded-full text-sm font-medium border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition duration-300 capitalize";
+  });
+
+  activeBtn.className =
+    "category-btn px-6 py-2 rounded-full text-sm font-medium transition duration-300 bg-primary text-white shadow-md capitalize ";
+};
