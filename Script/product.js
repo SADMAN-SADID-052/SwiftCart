@@ -80,3 +80,26 @@ const displayProducts = (products) => {
     productContainer.appendChild(productDiv);
   });
 };
+
+
+// navbar highlight function
+document.addEventListener("DOMContentLoaded", function () {
+
+  const navButtons = document.querySelectorAll(".nav-btn");
+
+  navButtons.forEach(button => {
+    button.addEventListener("click", function () {
+
+      navButtons.forEach(btn => btn.classList.remove("active"));
+      this.classList.add("active");
+
+    });
+  });
+
+  // Default active (Home)
+  if(navButtons.length > 0){
+    navButtons[0].classList.add("active");
+  }
+
+});
+
