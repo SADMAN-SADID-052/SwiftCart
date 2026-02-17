@@ -1,11 +1,19 @@
 const productContainer = document.getElementById("product-container");
 const homeContent = document.getElementById("homeContent");
+const TrendContainer = document.getElementById("Trand-container");
+const TrendingText = document.getElementById("TrendingText");
+const showCategory = document.getElementById("showCategory");
+
 
 // Show Products
 const allProducts = () => {
   homeContent.classList.add("hidden");
+  TrendContainer.classList.add("hidden");
   productContainer.classList.remove("hidden");
-
+  TrendingText.classList.add("hidden");
+   showCategory.classList.remove("hidden");
+   
+  loadCategories();
   fetch("https://fakestoreapi.com/products")
     .then((res) => res.json())
     .then((data) => displayProducts(data));
@@ -62,18 +70,23 @@ const displayDetails = (singleProduct) => {
 const showHome = () => {
   homeContent.classList.remove("hidden");
   productContainer.classList.add("hidden");
+   TrendingText.classList.remove("hidden");
+   TrendContainer.classList.remove("hidden")
+    showCategory.classList.add("hidden");
 };
 
 // Home Section: Trending Product Show Dynamically
 
 const Trendingproducts = () => {
+
+  
   fetch("https://fakestoreapi.com/products")
     .then((res) => res.json())
     .then((data) => displayTrend(data));
 };
 
 const displayTrend = (trends) => {
-  const TrendContainer = document.getElementById("Trand-container");
+
   TrendContainer.innerHTML = "";
 
   //  filter by rating
@@ -137,6 +150,39 @@ const displayTrend = (trends) => {
 };
 
 Trendingproducts();
+
+
+// Category showing
+
+const loadCategories = async () => {
+  const res = await fetch("https://fakestoreapi.com/products/categories");
+  const categories = await res.json();
+
+  const container = document.getElementById("category-container");
+  container.innerHTML = "";
+
+  // All button
+  const allBtn = document.createElement("button");
+  allBtn.innerText = "All";
+  allBtn.className = "category-btn";
+  allBtn.onclick = () => allProducts();
+  container.appendChild(allBtn);
+
+  categories.forEach((cat) => {
+    const btn = document.createElement("button");
+    btn.innerText = cat;
+    btn.className = "category-btn capitalize";
+
+    btn.onclick = () => {
+      fetch(`https://fakestoreapi.com/products/category/${cat}`)
+        .then((res) => res.json())
+        .then((data) => displayProducts(data));
+    };
+
+    container.appendChild(btn);
+  });
+};
+
 
 // Display Products
 const displayProducts = (products) => {
