@@ -271,6 +271,23 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+document.addEventListener("DOMContentLoaded", function () {
+  const navBtns = document.querySelectorAll(".nav-1");
+
+  navBtns.forEach((button1) => {
+    button1.addEventListener("click", function () {
+      navBtns.forEach((btn1) => btn1.classList.remove("active"));
+      this.classList.add("active");
+    });
+  });
+
+  // Default active (Home)
+  if (navBtns.length > 0) {
+    navBtns[0].classList.add("active");
+  }
+});
+
+
 // Category button highlight function
 
 const setActiveButton = (activeBtn) => {
