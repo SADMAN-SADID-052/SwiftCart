@@ -1,22 +1,19 @@
 const productContainer = document.getElementById("product-container");
 const homeContent = document.getElementById("homeContent");
 
-
 // Show Products
 const allProducts = () => {
-
   homeContent.classList.add("hidden");
   productContainer.classList.remove("hidden");
 
   fetch("https://fakestoreapi.com/products")
-    .then(res => res.json())
-    .then(data => displayProducts(data));
+    .then((res) => res.json())
+    .then((data) => displayProducts(data));
 };
 
 // Load each product details
 
-const loadDetail = async(id) =>{
-
+const loadDetail = async (id) => {
   const url = `https://fakestoreapi.com/products/${id}`;
   const res = await fetch(url);
   const details = await res.json();
@@ -24,12 +21,10 @@ const loadDetail = async(id) =>{
 };
 
 // Now display product details
-const displayDetails = (singleProduct) =>{
-
-
-console.log(singleProduct);
-const detailsbox = document.getElementById("details-container")
-detailsbox.innerHTML=`
+const displayDetails = (singleProduct) => {
+  console.log(singleProduct);
+  const detailsbox = document.getElementById("details-container");
+  detailsbox.innerHTML = `
   <div class="card bg-base-100 w-full shadow-sm">
   <figure class="">
     <img
@@ -58,12 +53,10 @@ detailsbox.innerHTML=`
   </div>
 </div>
 
-`
+`;
 
-document.getElementById("my_modal").showModal();
-
-}
-
+  document.getElementById("my_modal").showModal();
+};
 
 // Show Home
 const showHome = () => {
@@ -71,14 +64,85 @@ const showHome = () => {
   productContainer.classList.add("hidden");
 };
 
+// Home Section: Trending Product Show Dynamically
+
+const Trendingproducts = () => {
+  fetch("https://fakestoreapi.com/products")
+    .then((res) => res.json())
+    .then((data) => displayTrend(data));
+};
+
+const displayTrend = (trends) => {
+  const TrendContainer = document.getElementById("Trand-container");
+  TrendContainer.innerHTML = "";
+
+  //  filter by rating
+  const filtered = trends.filter((trend) => trend.rating.rate >= 4.7);
+  const topThree = filtered.slice(0, 3);
+
+  topThree.forEach((trend) => {
+    const TrendDiv = document.createElement("div");
+
+    TrendDiv.innerHTML = `
+
+
+      <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition duration-300 p-4">
+
+        <!-- Image -->
+        <div class="bg-gray-100 rounded-xl flex items-center justify-center p-4 h-56">
+          <img src="${trend.image}" 
+               alt="${trend.title}" 
+               class="h-44 object-contain">
+        </div>
+
+        <!-- Category + Rating -->
+        <div class="flex items-center justify-between mt-4">
+          <span class="text-xs bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full font-medium capitalize">
+            ${trend.category}
+          </span>
+
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+            <span class="ml-1 font-medium">${trend.rating.rate}</span>
+            <span class="ml-1 text-gray-400">(${trend.rating.count})</span>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <h3 class="mt-3 font-semibold text-gray-800 text-sm line-clamp-2">
+          ${trend.title.length > 30 ? trend.title.slice(0, 30) + "..." : trend.title}
+        </h3>
+
+        <!-- Price -->
+        <p class="mt-2 text-lg font-bold text-gray-900">
+          $${trend.price}
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex items-center justify-between mt-4 gap-2">
+        <button onClick="loadDetail(${trend.id})" class="flex-1 text-sm text-gray-600 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition font-semibold">
+            👁 Details
+          </button>
+        
+
+          <button class="flex-1 text-sm text-white bg-[#4F39F6] px-4 py-2 rounded-lg hover:scale-105 hover:shadow-md transition">
+            🛒 Add
+          </button>
+        </div>
+
+      </div>
+    `;
+    TrendContainer.appendChild(TrendDiv);
+  });
+};
+
+Trendingproducts();
 
 // Display Products
 const displayProducts = (products) => {
-
   productContainer.innerHTML = "";
 
-  products.forEach(product => {
-
+  products.forEach((product) => {
     const productDiv = document.createElement("div");
 
     productDiv.innerHTML = `
@@ -106,7 +170,7 @@ const displayProducts = (products) => {
 
         <!-- Title -->
         <h3 class="mt-3 font-semibold text-gray-800 text-sm line-clamp-2">
-          ${product.title.length > 30 ? product.title.slice(0,30) + "..." : product.title}
+          ${product.title.length > 30 ? product.title.slice(0, 30) + "..." : product.title}
         </h3>
 
         <!-- Price -->
@@ -132,25 +196,19 @@ const displayProducts = (products) => {
   });
 };
 
-
 // navbar highlight function
 document.addEventListener("DOMContentLoaded", function () {
-
   const navButtons = document.querySelectorAll(".nav-btn");
 
-  navButtons.forEach(button => {
+  navButtons.forEach((button) => {
     button.addEventListener("click", function () {
-
-      navButtons.forEach(btn => btn.classList.remove("active"));
+      navButtons.forEach((btn) => btn.classList.remove("active"));
       this.classList.add("active");
-
     });
   });
 
   // Default active (Home)
-  if(navButtons.length > 0){
+  if (navButtons.length > 0) {
     navButtons[0].classList.add("active");
   }
-
 });
-
