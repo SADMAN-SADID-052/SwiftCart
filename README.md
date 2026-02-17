@@ -1,6 +1,6 @@
 ## WELCOME TO  (SwiftCart E-Commerce)
 
-- **Live Link :** YOUR_DEPLOYED_URL_HERE
+- **Live Link :** https://sparkling-lamington-f27333.netlify.app/
 
 ## Question Answer
 
